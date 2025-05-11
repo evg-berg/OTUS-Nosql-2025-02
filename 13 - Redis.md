@@ -53,4 +53,9 @@
 
    print(f"Загружено {len(events)} событий в Redis")
    ```
-8. 
+8. Данные загружены:
+   ```sh
+   evgenii@otus-nosql:~/redis$ python3 ./redis-json.py
+   Загружено 11351 событий в Redis
+   ```
+10. 
