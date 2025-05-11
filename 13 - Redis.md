@@ -92,48 +92,48 @@
     Получаем:
     ```sh
     >>> Performing hash slots allocation on 6 nodes...
-   Master[0] -> Slots 0 - 5460
-   Master[1] -> Slots 5461 - 10922
-   Master[2] -> Slots 10923 - 16383
-   Adding replica 172.17.0.7:6379 to 172.17.0.3:6379
-   Adding replica 172.17.0.7:6379 to 172.17.0.4:6379
-   Adding replica 172.17.0.6:6379 to 172.17.0.5:6379
-   M: 6e4a400a2ff84e5657e7a4b447f7572d1577d9ee 172.17.0.3:6379
-      slots:[0-5460] (5461 slots) master
-   M: 1ca12ea7522ae5c6eda3f2d63ffca4d9bec6f59a 172.17.0.4:6379
-      slots:[5461-10922] (5462 slots) master
-   M: f1b087d8e6e2807427a15f8ee8b40e861f801dde 172.17.0.5:6379
-      slots:[10923-16383] (5461 slots) master
-   S: 3537423839552fd4fced1f192f4f2d7237430a01 172.17.0.6:6379
-      replicates f1b087d8e6e2807427a15f8ee8b40e861f801dde
-   S: 59b08bdb6b21fd8582efbb6a1630bafe65783ed3 172.17.0.7:6379
-      replicates 6e4a400a2ff84e5657e7a4b447f7572d1577d9ee
-   S: 59b08bdb6b21fd8582efbb6a1630bafe65783ed3 172.17.0.7:6379
-      replicates 1ca12ea7522ae5c6eda3f2d63ffca4d9bec6f59a
-   Can I set the above configuration? (type 'yes' to accept): yes
-   >>> Nodes configuration updated
-   >>> Assign a different config epoch to each node
-   >>> Sending CLUSTER MEET messages to join the cluster
-   Waiting for the cluster to join
-   .
-   >>> Performing Cluster Check (using node 172.17.0.3:6379)
-   M: 6e4a400a2ff84e5657e7a4b447f7572d1577d9ee 172.17.0.3:6379
-      slots:[0-5460] (5461 slots) master
-   S: 3537423839552fd4fced1f192f4f2d7237430a01 172.17.0.6:6379
-      slots: (0 slots) slave
-      replicates f1b087d8e6e2807427a15f8ee8b40e861f801dde
-   S: 59b08bdb6b21fd8582efbb6a1630bafe65783ed3 172.17.0.7:6379
-      slots: (0 slots) slave
-      replicates 1ca12ea7522ae5c6eda3f2d63ffca4d9bec6f59a
-   M: 1ca12ea7522ae5c6eda3f2d63ffca4d9bec6f59a 172.17.0.4:6379
-      slots:[5461-10922] (5462 slots) master
-      1 additional replica(s)
-   M: f1b087d8e6e2807427a15f8ee8b40e861f801dde 172.17.0.5:6379
-      slots:[10923-16383] (5461 slots) master
-      1 additional replica(s)
-   [OK] All nodes agree about slots configuration.
-   >>> Check for open slots...
-   >>> Check slots coverage...
-   [OK] All 16384 slots covered.
+    Master[0] -> Slots 0 - 5460
+    Master[1] -> Slots 5461 - 10922
+    Master[2] -> Slots 10923 - 16383
+    Adding replica 172.17.0.7:6379 to 172.17.0.3:6379
+    Adding replica 172.17.0.7:6379 to 172.17.0.4:6379
+    Adding replica 172.17.0.6:6379 to 172.17.0.5:6379
+    M: 6e4a400a2ff84e5657e7a4b447f7572d1577d9ee 172.17.0.3:6379
+       slots:[0-5460] (5461 slots) master
+    M: 1ca12ea7522ae5c6eda3f2d63ffca4d9bec6f59a 172.17.0.4:6379
+       slots:[5461-10922] (5462 slots) master
+    M: f1b087d8e6e2807427a15f8ee8b40e861f801dde 172.17.0.5:6379
+       slots:[10923-16383] (5461 slots) master
+    S: 3537423839552fd4fced1f192f4f2d7237430a01 172.17.0.6:6379
+       replicates f1b087d8e6e2807427a15f8ee8b40e861f801dde
+    S: 59b08bdb6b21fd8582efbb6a1630bafe65783ed3 172.17.0.7:6379
+       replicates 6e4a400a2ff84e5657e7a4b447f7572d1577d9ee
+    S: 59b08bdb6b21fd8582efbb6a1630bafe65783ed3 172.17.0.7:6379
+       replicates 1ca12ea7522ae5c6eda3f2d63ffca4d9bec6f59a
+    Can I set the above configuration? (type 'yes' to accept): yes
+    >>> Nodes configuration updated
+    >>> Assign a different config epoch to each node
+    >>> Sending CLUSTER MEET messages to join the cluster
+    Waiting for the cluster to join
+    .
+    >>> Performing Cluster Check (using node 172.17.0.3:6379)
+    M: 6e4a400a2ff84e5657e7a4b447f7572d1577d9ee 172.17.0.3:6379
+       slots:[0-5460] (5461 slots) master
+    S: 3537423839552fd4fced1f192f4f2d7237430a01 172.17.0.6:6379
+       slots: (0 slots) slave
+       replicates f1b087d8e6e2807427a15f8ee8b40e861f801dde
+    S: 59b08bdb6b21fd8582efbb6a1630bafe65783ed3 172.17.0.7:6379
+       slots: (0 slots) slave
+       replicates 1ca12ea7522ae5c6eda3f2d63ffca4d9bec6f59a
+    M: 1ca12ea7522ae5c6eda3f2d63ffca4d9bec6f59a 172.17.0.4:6379
+       slots:[5461-10922] (5462 slots) master
+       1 additional replica(s)
+    M: f1b087d8e6e2807427a15f8ee8b40e861f801dde 172.17.0.5:6379
+       slots:[10923-16383] (5461 slots) master
+       1 additional replica(s)
+    [OK] All nodes agree about slots configuration.
+    >>> Check for open slots...
+    >>> Check slots coverage...
+    [OK] All 16384 slots covered.
     ```
 16. 
