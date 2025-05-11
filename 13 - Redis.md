@@ -136,4 +136,9 @@
     >>> Check slots coverage...
     [OK] All 16384 slots covered.
     ```
-16. 
+16. Проверяем статус:
+    ```sh
+    evgenii@otus-nosql:~/redis$ docker exec -it otus-redis-7.2-1 redis-cli
+    127.0.0.1:6379> cluster info
+    cluster_state:ok
+    ```
