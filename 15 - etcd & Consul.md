@@ -62,4 +62,16 @@
       volumes:
         - ./data/etcd3:/etcd_data
    ```
-3. 
+2. Определяем выбранного лидера:
+   ```sh
+   docker compose logs --tail 10 -f
+   ```
+   etcdctl --endpoints=http://etcd1:2379,http://etcd2:2379,http://etcd3:2379 endpoint status
+   http://etcd1:2379, ade526d28b1f92f7, 3.5.21, 20 kB, false, false, 2, 8, 8,
+   http://etcd2:2379, d282ac2ce600c1ce, 3.5.21, 20 kB, true, false, 2, 8, 8,
+   http://etcd3:2379, bd388e7810915853, 3.5.21, 20 kB, false, false, 2, 8, 8,
+   ```sh
+   лидером выбран etcd2
+   
+   ```
+
