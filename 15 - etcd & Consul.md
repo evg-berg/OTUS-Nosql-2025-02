@@ -62,6 +62,7 @@
       volumes:
         - ./data/etcd3:/etcd_data
    ```
+
 2. Определяем выбранного лидера:
    ```sh
    docker exec -ti etcd1 bash
@@ -73,7 +74,8 @@
    http://etcd3:2379, bd388e7810915853, 3.5.21, 20 kB, false, false, 2, 8, 8,
    ```
    лидером выбран etcd2
-3. Выключем etcd2:
+
+3. Выключем лидера (etcd2):
    ```sh
    docker compose stop etcd2
    ```
