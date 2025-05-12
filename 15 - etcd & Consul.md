@@ -64,7 +64,7 @@
    ```
 2. Определяем выбранного лидера:
    ```sh
-   docker compose logs --tail 10 -f
+   docker exec -ti etcd1 bash
    ```
    ```sh
    etcdctl --endpoints=http://etcd1:2379,http://etcd2:2379,http://etcd3:2379 endpoint status
@@ -73,4 +73,15 @@
    http://etcd3:2379, bd388e7810915853, 3.5.21, 20 kB, false, false, 2, 8, 8,
    ```
    лидером выбран etcd2
-
+3. Выключем etcd2:
+   ```sh
+   docker compose stop etcd2
+   ```
+   Проверяем кто стал лидером:
+   ```sh
+   docker exec -ti etcd1 bash
+   etcdctl --endpoints=http://etcd1:2379,http://etcd3:2379 endpoint status
+   http://etcd1:2379, ade526d28b1f92f7, 3.5.21, 20 kB, false, false, 3, 9, 9,
+   http://etcd3:2379, bd388e7810915853, 3.5.21, 20 kB, true, false, 3, 9, 9,
+   ```
+   лидером выбран etcd3
