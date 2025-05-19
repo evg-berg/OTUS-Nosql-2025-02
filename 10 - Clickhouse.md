@@ -9,8 +9,8 @@
    ./google-cloud-sdk/install.sh
    ```
 3. Скачиваем тестовые данные:
-   '''sh
+   ```sh
    mkdir ./taxi_data
    gsutil -m cp -R gs://chicago10/taxi.csv.0000000000[0-3]* ./taxi_data/
-   '''
+   ```
 4. 
