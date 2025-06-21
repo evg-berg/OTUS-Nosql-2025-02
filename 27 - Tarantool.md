@@ -90,6 +90,10 @@
    ```
 7. Запрос для выборки минимальной стоимости на 01.01.2025
    ```lua
-   /var/run/tarantool/sys_env/default/instance-001/tarantool.control> box.space.ticket_searches.index.sec_idx:select('01.01.2025')
+   /var/run/tarantool/sys_env/default/instance-001/tarantool.control> box.space.ticket_searches.index.sec_idx:select({'01.01.2025'}, {limit=1})
+   ---
+   - - [4, 'Ural Airlines', '01.01.2025', 'Ekaterinburg', 'Moscow', 2800]
+   ...
    ```
-9. 
+   Получили минимальную цену за 01.01.2025
+8. 
