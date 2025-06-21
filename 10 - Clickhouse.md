@@ -72,4 +72,33 @@
    PARTITION BY toYYYYMM(trip_start_timestamp)
    ORDER BY (payment_type, tips, tolls)
    ```
-11. 
+8. Готовим исходные данные для загрузки - убираем "UTC" из файлов .csv
+   ```sh
+   cd ./taxi_data
+   mcedit crop_utc
+   #!/bin/bash
+   for i in *; do
+    if [ "${i:0:4}" = "taxi" ];then
+        echo "Готовим файл  $i"
+        awk '{gsub(/ UTC,/,",")}1' $i > temp.txt && mv temp.txt $i
+        tail -n3 $i
+    fi
+   done
+   chmod +x crop_utc
+   ./crop_utc
+   ```
+10. Загружаем данные в БД
+    ```sh
+    mcedit insert_data
+    #!/bin/bash
+
+    for i in *; do
+       if [ "${i:0:4}" = "taxi" ];then
+        echo "Вставляем данные из файла  $i"
+        cat $i | clickhouse-client --query 'INSERT INTO taxi.taxi_trips FORMAT CSVWithNames'
+    fi
+    done
+    chmod +x insert_data
+    ./insert_data
+    ```
+12. 
