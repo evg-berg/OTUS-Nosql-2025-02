@@ -151,20 +151,20 @@
    /var/run/tarantool/sys_env/default/instance-001/tarantool.control> find_cheap_flights(3000)
    ---
    - - departure_date: 02.01.2025
-    price: 2500
-    to: Kazan
-    from: Saint Petersburg
-    airline: Pobeda
-  - departure_date: 01.01.2025
-    price: 2800
-    to: Moscow
-    from: Ekaterinburg
-    airline: Ural Airlines
-  - departure_date: 01.01.2025
-    price: 2900
-    to: Sochi
-    from: Moscow
-    airline: Pobeda
+       price: 2500
+       to: Kazan
+       from: Saint Petersburg
+       airline: Pobeda
+     - departure_date: 01.01.2025
+       price: 2800
+       to: Moscow
+       from: Ekaterinburg
+       airline: Ural Airlines
+     - departure_date: 01.01.2025
+       price: 2900
+       to: Sochi
+       from: Moscow
+       airline: Pobeda
    ...
    ```
    Получили список рейсов с минимальной стоимостью билета менее 3000 рублей
