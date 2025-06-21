@@ -87,18 +87,17 @@
    chmod +x crop_utc
    ./crop_utc
    ```
-10. Загружаем данные в БД
-    ```sh
-    mcedit insert_data
-    #!/bin/bash
-
-    for i in *; do
-       if [ "${i:0:4}" = "taxi" ];then
+9. Загружаем данные в БД
+   ```sh
+   mcedit insert_data
+   #!/bin/bash
+   for i in *; do
+      if [ "${i:0:4}" = "taxi" ];then
         echo "Вставляем данные из файла  $i"
         cat $i | clickhouse-client --query 'INSERT INTO taxi.taxi_trips FORMAT CSVWithNames'
-    fi
-    done
-    chmod +x insert_data
-    ./insert_data
-    ```
-12. 
+      fi
+   done
+   chmod +x insert_data
+   ./insert_data
+   ```
+10. 
