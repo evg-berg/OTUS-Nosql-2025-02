@@ -128,4 +128,40 @@
    ```
    Получили минимальную цену за 01.01.2025
    ![image](https://github.com/user-attachments/assets/f941260c-3d4e-4ce2-881d-d8d8e617da1f)
-8. 
+8. Функция для вывода рейсов с ценой менее 3000 рублей
+   ```lua
+   function find_cheap_flights(max_price)
+    local cheap_flights = {}
+    for _, tuple in ticket_searches:pairs() do
+        if tuple.min_price < max_price then
+            table.insert(cheap_flights, {
+                airline = tuple.airline,
+                departure_date = tuple.departure_date,
+                from = tuple.departure_city,
+                to = tuple.arrival_city,
+                price = tuple.min_price
+            })
+        end
+    end
+    return cheap_flights
+   end
+   -- Запускаем
+   /var/run/tarantool/sys_env/default/instance-001/tarantool.control> find_cheap_flights(3000)
+   ---
+   - - departure_date: 02.01.2025
+    price: 2500
+    to: Kazan
+    from: Saint Petersburg
+    airline: Pobeda
+  - departure_date: 01.01.2025
+    price: 2800
+    to: Moscow
+    from: Ekaterinburg
+    airline: Ural Airlines
+  - departure_date: 01.01.2025
+    price: 2900
+    to: Sochi
+    from: Moscow
+    airline: Pobeda
+   ...
+   ```
