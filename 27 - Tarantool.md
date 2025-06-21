@@ -11,7 +11,7 @@
    /var/run/tarantool/sys_env/default/instance-001/tarantool.control>
    ```
 3. Создаем спейс (таблицу) для хранения данных о поисках авиабилетов
-   ```tarantool
+   ```lua
    ticket_searches = box.schema.space.create('ticket_searches', {
     if_not_exists = true,
     format = {
