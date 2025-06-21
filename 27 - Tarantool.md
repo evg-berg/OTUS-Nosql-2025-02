@@ -128,5 +128,4 @@
    ```
    Получили минимальную цену за 01.01.2025
    ![image](https://github.com/user-attachments/assets/f941260c-3d4e-4ce2-881d-d8d8e617da1f)
-
-9. 
+8. 
