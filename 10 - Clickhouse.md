@@ -39,4 +39,37 @@
       └────────────────────┘
    4 rows in set. Elapsed: 0.002 sec.
    ```
-9. 
+9. Создадим базу данных taxi
+   ```clickhouse
+   CREATE DATABASE IF NOT EXISTS taxi
+   CREATE TABLE taxi.taxi_trips
+   (
+    `unique_key` String,
+    `taxi_id` String,
+    `trip_start_timestamp` DateTime,
+    `trip_end_timestamp` DateTime,
+    `trip_seconds` Int64,
+    `trip_miles` Decimal(10, 4),
+    `pickup_census_tract` String,
+    `dropoff_census_tract` String,
+    `pickup_community_area` String,
+    `dropoff_community_area` String,
+    `fare` Decimal(10, 4),
+    `tips` Decimal(10, 4),
+    `tolls` Decimal(10, 4),
+    `extras` Decimal(10, 4),
+    `trip_total` Decimal(10, 4),
+    `payment_type` String,
+    `company` String,
+    `pickup_latitude` Decimal(10, 4),
+    `pickup_longitude` Decimal(10, 4),
+    `pickup_location` String,
+    `dropoff_latitude` Decimal(10, 4),
+    `dropoff_longitude` Decimal(10, 4),
+    `dropoff_location` String
+   )
+   ENGINE = MergeTree
+   PARTITION BY toYYYYMM(trip_start_timestamp)
+   ORDER BY (payment_type, tips, tolls)
+   ```
+11. 
