@@ -6,6 +6,8 @@
 2. Подключаемся к серверу
    ```sh
    evgenii@otus-nosql:~/tarantool$ docker exec -it mytarantool console
+   ```
+   ```lua
    • Connecting to the instance...
    • Connected to /var/run/tarantool/sys_env/default/instance-001/tarantool.control
    /var/run/tarantool/sys_env/default/instance-001/tarantool.control>
