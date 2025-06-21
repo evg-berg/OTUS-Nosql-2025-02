@@ -26,7 +26,7 @@
    sudo rm /etc/clickhouse-server/users.d/default-password.xml
    clickhouse-client
    ```
-7. Смотрим БД
+6. Смотрим БД
    ```clickhouse
    otus-nosql.ru-central1.internal :) show databases;
    SHOW DATABASES
@@ -39,7 +39,7 @@
       └────────────────────┘
    4 rows in set. Elapsed: 0.002 sec.
    ```
-9. Создадим базу данных taxi
+7. Создадим базу данных taxi
    ```clickhouse
    CREATE DATABASE IF NOT EXISTS taxi
    CREATE TABLE taxi.taxi_trips
