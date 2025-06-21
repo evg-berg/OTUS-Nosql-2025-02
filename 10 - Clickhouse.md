@@ -26,4 +26,8 @@
    sudo rm /etc/clickhouse-server/users.d/default-password.xml
    clickhouse-client
    ```
-7. 
+7. Смотрим БД
+   ```clickhouse
+   show databases;
+   ```
+9. 
