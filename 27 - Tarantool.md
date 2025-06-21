@@ -49,10 +49,10 @@
      name: primary
    ...
    ```
-5. Создаем вторичный индекс на поля departure_date, airline и departure_city
+5. Создаем вторичный индекс на поля departure_date, min_price
    ```lua
-   /var/run/tarantool/sys_env/default/instance-001/tarantool.control> ticket_searches:create_index('secondary_idx', {
-    parts = {'departure_date', 'airline', 'departure_city'},
+   /var/run/tarantool/sys_env/default/instance-001/tarantool.control> ticket_searches:create_index('sec_idx', {
+    parts = {'departure_date', 'min_price'},
     if_not_exists = true,
     unique = false
    })
@@ -64,21 +64,16 @@
        type: string
        exclude_null: false
        is_nullable: false
-     - fieldno: 2
+     - fieldno: 6
        sort_order: asc
-       type: string
-       exclude_null: false
-       is_nullable: false
-     - fieldno: 4
-       sort_order: asc
-       type: string
+       type: unsigned
        exclude_null: false
        is_nullable: false
      hint: true
      id: 1
      type: TREE
      space_id: 512
-     name: secondary_idx
+     name: sec_idx
    ...
    ```
 6. Вставка записей
@@ -95,6 +90,6 @@
    ```
 7. Запрос для выборки минимальной стоимости на 01.01.2025
    ```lua
-   
+   /var/run/tarantool/sys_env/default/instance-001/tarantool.control> box.space.ticket_searches.index.sec_idx:select('01.01.2025')
    ```
 9. 
