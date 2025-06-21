@@ -81,4 +81,16 @@
      name: secondary_idx
    ...
    ```
-6. 
+6. Вставка записей
+   ```lua
+   /var/run/tarantool/sys_env/default/instance-001/tarantool.control> ticket_searches:insert{1, 'Aeroflot', '01.01.2025', 'Moscow', 'Sochi', 4500}
+   ticket_searches:insert{2, 'S7', '01.01.2025', 'Novosibirsk', 'Moscow', 3200}
+   ticket_searches:insert{3, 'Pobeda', '02.01.2025', 'Saint Petersburg', 'Kazan', 2500}
+   ticket_searches:insert{4, 'Ural Airlines', '01.01.2025', 'Ekaterinburg', 'Moscow', 2800}
+   ticket_searches:insert{5, 'Aeroflot', '03.01.2025', 'Moscow', 'Krasnodar', 3500}
+   ticket_searches:insert{6, 'S7', '01.01.2025', 'Moscow', 'Irkutsk', 4200}
+   ticket_searches:insert{7, 'Pobeda', '01.01.2025', 'Moscow', 'Sochi', 2900}
+   ---
+   ...
+   ```
+8. 
