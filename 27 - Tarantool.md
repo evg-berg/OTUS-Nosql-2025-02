@@ -25,6 +25,8 @@
         {name = 'min_price', type = 'unsigned'}
     }
    })
+   ---
+   ...
    ```
 4. Создаем первичный индекс
    ```lua
@@ -45,6 +47,38 @@
      type: TREE
      space_id: 512
      name: primary
+   ...
+   ```
+5. Создаем вторичный индекс на поля departure_date, airline и departure_city
+   ```lua
+   /var/run/tarantool/sys_env/default/instance-001/tarantool.control> ticket_searches:create_index('secondary_idx', {
+    parts = {'departure_date', 'airline', 'departure_city'},
+    if_not_exists = true,
+    unique = false
+   })
+   ---
+   - unique: false
+     parts:
+     - fieldno: 3
+       sort_order: asc
+       type: string
+       exclude_null: false
+       is_nullable: false
+     - fieldno: 2
+       sort_order: asc
+       type: string
+       exclude_null: false
+       is_nullable: false
+     - fieldno: 4
+       sort_order: asc
+       type: string
+       exclude_null: false
+       is_nullable: false
+     hint: true
+     id: 1
+     type: TREE
+     space_id: 512
+     name: secondary_idx
    ...
    ```
 6. 
