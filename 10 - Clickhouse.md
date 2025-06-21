@@ -106,9 +106,9 @@
     SELECT count(*)
     FROM taxi.taxi_trips
     Query id: 1c98de53-f2ed-4380-beb5-168dc6cdb211
-    ┌──count()─┐
+       ┌──count()─┐
     1. │ 26753683 │ -- 26.75 million
-    └──────────┘
+       └──────────┘
     1 row in set. Elapsed: 0.007 sec.
     ```
     ```clickhouse
