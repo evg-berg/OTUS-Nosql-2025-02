@@ -49,9 +49,54 @@
      name: primary
    ...
    ```
-5. Создаем вторичный индекс на поля departure_date, min_price
+5. Создаем вторичный индекс на поля departure_date, airline и departure_city
    ```lua
-   /var/run/tarantool/sys_env/default/instance-001/tarantool.control> ticket_searches:create_index('sec_idx', {
+   /var/run/tarantool/sys_env/default/instance-001/tarantool.control> ticket_searches:create_index('secondary_idx', {
+    parts = {'departure_date', 'airline', 'departure_city'},
+    if_not_exists = true,
+    unique = false
+   })
+   ---
+   - unique: false
+     parts:
+     - fieldno: 3
+       sort_order: asc
+       type: string
+       exclude_null: false
+       is_nullable: false
+     - fieldno: 2
+       sort_order: asc
+       type: string
+       exclude_null: false
+       is_nullable: false
+     - fieldno: 4
+       sort_order: asc
+       type: string
+       exclude_null: false
+       is_nullable: false
+     hint: true
+     id: 1
+     type: TREE
+     space_id: 512
+     name: secondary_idx
+   ...
+   ```
+6. Вставка записей
+   ```lua
+   /var/run/tarantool/sys_env/default/instance-001/tarantool.control> ticket_searches:insert{1, 'Aeroflot', '01.01.2025', 'Moscow', 'Sochi', 4500}
+   ticket_searches:insert{2, 'S7', '01.01.2025', 'Novosibirsk', 'Moscow', 3200}
+   ticket_searches:insert{3, 'Pobeda', '02.01.2025', 'Saint Petersburg', 'Kazan', 2500}
+   ticket_searches:insert{4, 'Ural Airlines', '01.01.2025', 'Ekaterinburg', 'Moscow', 2800}
+   ticket_searches:insert{5, 'Aeroflot', '03.01.2025', 'Moscow', 'Krasnodar', 3500}
+   ticket_searches:insert{6, 'S7', '01.01.2025', 'Moscow', 'Irkutsk', 4200}
+   ticket_searches:insert{7, 'Pobeda', '01.01.2025', 'Moscow', 'Sochi', 2900}
+   ---
+   ...
+   ```
+7. Запрос для выборки минимальной стоимости на 01.01.2025
+   ```lua
+   -- Создаём индекс для двух полей departure_date, min_price
+   /var/run/tarantool/sys_env/default/instance-001/tarantool.control> ticket_searches:create_index('date_price_idx', {
     parts = {'departure_date', 'min_price'},
     if_not_exists = true,
     unique = false
@@ -70,27 +115,13 @@
        exclude_null: false
        is_nullable: false
      hint: true
-     id: 1
+     id: 2
      type: TREE
      space_id: 512
-     name: sec_idx
+     name: date_price_idx
    ...
-   ```
-6. Вставка записей
-   ```lua
-   /var/run/tarantool/sys_env/default/instance-001/tarantool.control> ticket_searches:insert{1, 'Aeroflot', '01.01.2025', 'Moscow', 'Sochi', 4500}
-   ticket_searches:insert{2, 'S7', '01.01.2025', 'Novosibirsk', 'Moscow', 3200}
-   ticket_searches:insert{3, 'Pobeda', '02.01.2025', 'Saint Petersburg', 'Kazan', 2500}
-   ticket_searches:insert{4, 'Ural Airlines', '01.01.2025', 'Ekaterinburg', 'Moscow', 2800}
-   ticket_searches:insert{5, 'Aeroflot', '03.01.2025', 'Moscow', 'Krasnodar', 3500}
-   ticket_searches:insert{6, 'S7', '01.01.2025', 'Moscow', 'Irkutsk', 4200}
-   ticket_searches:insert{7, 'Pobeda', '01.01.2025', 'Moscow', 'Sochi', 2900}
-   ---
-   ...
-   ```
-7. Запрос для выборки минимальной стоимости на 01.01.2025
-   ```lua
-   /var/run/tarantool/sys_env/default/instance-001/tarantool.control> box.space.ticket_searches.index.sec_idx:select({'01.01.2025'}, {limit = 1})
+   -- Выбираем первое значение за 01.01.2025
+   /var/run/tarantool/sys_env/default/instance-001/tarantool.control> box.space.ticket_searches.index.date_price_idx:select({'01.01.2025'}, {limit = 1})
    ---
    - - [4, 'Ural Airlines', '01.01.2025', 'Ekaterinburg', 'Moscow', 2800]
    ...
