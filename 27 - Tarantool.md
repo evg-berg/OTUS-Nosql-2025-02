@@ -169,4 +169,3 @@
    ```
    Получили список рейсов с минимальной стоимостью билета менее 3000 рублей
    ![image](https://github.com/user-attachments/assets/28eb75eb-336b-4d75-bad6-feefd47a1a65)
-
