@@ -14,7 +14,7 @@
    ```
 3. Создаем спейс (таблицу) для хранения данных о поисках авиабилетов
    ```lua
-   ticket_searches = box.schema.space.create('ticket_searches', {
+   /var/run/tarantool/sys_env/default/instance-001/tarantool.control> ticket_searches = box.schema.space.create('ticket_searches', {
     if_not_exists = true,
     format = {
         {name = 'id', type = 'unsigned'},
@@ -28,9 +28,23 @@
    ```
 4. Создаем первичный индекс
    ```lua
-   ticket_searches:create_index('primary', {
+   /var/run/tarantool/sys_env/default/instance-001/tarantool.control> ticket_searches:create_index('primary', {
     parts = {'id'},
     if_not_exists = true
    })
+   ---
+   - unique: true
+     parts:
+     - fieldno: 1
+       sort_order: asc
+       type: unsigned
+       exclude_null: false
+       is_nullable: false
+     hint: true
+     id: 0
+     type: TREE
+     space_id: 512
+     name: primary
+   ...
    ```
 6. 
