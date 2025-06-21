@@ -100,4 +100,32 @@
    chmod +x insert_data
    ./insert_data
    ```
-10. 
+10. Проверяем загруженные данные
+    ```clickhouse
+    select count(*) from taxi.taxi_trips
+    SELECT count(*)
+    FROM taxi.taxi_trips
+    Query id: 1c98de53-f2ed-4380-beb5-168dc6cdb211
+    ┌──count()─┐
+    1. │ 26753683 │ -- 26.75 million
+    └──────────┘
+    1 row in set. Elapsed: 0.007 sec.
+    ```
+    ```clickhouse
+    SELECT name, total_rows, total_bytes FROM system.tables where name='taxi_trips' FORMAT Vertical;
+    SELECT
+       name,
+       total_rows,
+       total_bytes
+    FROM system.tables
+    WHERE name = 'taxi_trips'
+    FORMAT Vertical
+    Query id: 71135c22-d3b3-4720-8568-1e1f86d69d5f
+    Row 1:
+    ──────
+    name:        taxi_trips
+    total_rows:  26753683 -- 26.75 million
+    total_bytes: 3689162741 -- 3.69 billion
+    1 row in set. Elapsed: 0.003 sec.
+    ```
+11. 
