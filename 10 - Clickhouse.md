@@ -28,6 +28,15 @@
    ```
 7. Смотрим БД
    ```clickhouse
-   show databases;
+   otus-nosql.ru-central1.internal :) show databases;
+   SHOW DATABASES
+   Query id: 7b789890-f245-467d-8117-df8fa31b84f6
+      ┌─name───────────────┐
+   1. │ INFORMATION_SCHEMA │
+   2. │ default            │
+   3. │ information_schema │
+   4. │ system             │
+      └────────────────────┘
+   4 rows in set. Elapsed: 0.002 sec.
    ```
 9. 
