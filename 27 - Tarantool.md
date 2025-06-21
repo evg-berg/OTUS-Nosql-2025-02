@@ -23,8 +23,8 @@
         {name = 'min_price', type = 'unsigned'}
     }
    })
-  ```
-5. Создаем первичный индекс
+   ```
+4. Создаем первичный индекс
    ```lua
    ticket_searches:create_index('primary', {
     parts = {'id'},
