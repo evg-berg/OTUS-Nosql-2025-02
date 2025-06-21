@@ -24,5 +24,11 @@
     }
    })
   ```
-5. 
+5. Создаем первичный индекс
+   ```lua
+   ticket_searches:create_index('primary', {
+    parts = {'id'},
+    if_not_exists = true
+   })
+   ```
 6. 
