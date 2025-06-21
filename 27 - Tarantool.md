@@ -120,6 +120,7 @@
      space_id: 512
      name: date_price_idx
    ...
+   
    -- Выбираем первое значение за 01.01.2025
    /var/run/tarantool/sys_env/default/instance-001/tarantool.control> box.space.ticket_searches.index.date_price_idx:select({'01.01.2025'}, {limit = 1})
    ---
@@ -145,6 +146,7 @@
     end
     return cheap_flights
    end
+   
    -- Запускаем
    /var/run/tarantool/sys_env/default/instance-001/tarantool.control> find_cheap_flights(3000)
    ---
@@ -165,3 +167,5 @@
     airline: Pobeda
    ...
    ```
+   Получили список рейсов с минимальной стоимостью билета менее 3000 рублей
+   ![image](https://github.com/user-attachments/assets/1e0af939-2a0a-48d2-a583-a3c5f6dd4aa2)
