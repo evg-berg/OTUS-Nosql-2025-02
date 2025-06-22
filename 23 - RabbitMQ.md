@@ -6,7 +6,9 @@
 # 2. Exchange и Queue
    Создаём Exchange otus_ex1 в http://51.250.84.117:15672/#/exchanges
    ![image](https://github.com/user-attachments/assets/34bc4dc1-a21d-4dd6-8a0d-87c02940fb84)
+   
    Создаём Queue otus_que1 в http://51.250.84.117:15672/#/queues
    ![image](https://github.com/user-attachments/assets/01b73817-7845-40ff-83ec-7b86770361fa)
+   
    И связываем их
 # 3.
