@@ -1,9 +1,9 @@
-1. Устанавливаем и запускаем Tarantool
+# 1. Устанавливаем и запускаем Tarantool
    ```sh
    docker pull tarantool/tarantool:latest
    docker run -it --name mytarantool -p 3301:3301 -d tarantool/tarantool
    ```
-2. Подключаемся к серверу
+# 2. Подключаемся к серверу
    ```sh
    evgenii@otus-nosql:~/tarantool$ docker exec -it mytarantool console
    ```
@@ -12,7 +12,7 @@
    • Connected to /var/run/tarantool/sys_env/default/instance-001/tarantool.control
    /var/run/tarantool/sys_env/default/instance-001/tarantool.control>
    ```
-3. Создаем спейс (таблицу) для хранения данных о поисках авиабилетов
+# 3. Создаем спейс (таблицу) для хранения данных о поисках авиабилетов
    ```lua
    /var/run/tarantool/sys_env/default/instance-001/tarantool.control> ticket_searches = box.schema.space.create('ticket_searches', {
     if_not_exists = true,
@@ -28,7 +28,7 @@
    ---
    ...
    ```
-4. Создаем первичный индекс
+# 4. Создаем первичный индекс
    ```lua
    /var/run/tarantool/sys_env/default/instance-001/tarantool.control> ticket_searches:create_index('primary', {
     parts = {'id'},
@@ -49,7 +49,7 @@
      name: primary
    ...
    ```
-5. Создаем вторичный индекс на поля departure_date, airline и departure_city
+# 5. Создаем вторичный индекс на поля departure_date, airline и departure_city
    ```lua
    /var/run/tarantool/sys_env/default/instance-001/tarantool.control> ticket_searches:create_index('secondary_idx', {
     parts = {'departure_date', 'airline', 'departure_city'},
@@ -81,7 +81,7 @@
      name: secondary_idx
    ...
    ```
-6. Вставка записей
+# 6. Вставка записей
    ```lua
    /var/run/tarantool/sys_env/default/instance-001/tarantool.control> ticket_searches:insert{1, 'Aeroflot', '01.01.2025', 'Moscow', 'Sochi', 4500}
    ticket_searches:insert{2, 'S7', '01.01.2025', 'Novosibirsk', 'Moscow', 3200}
@@ -93,7 +93,7 @@
    ---
    ...
    ```
-7. Запрос для выборки минимальной стоимости на 01.01.2025
+# 7. Запрос для выборки минимальной стоимости на 01.01.2025
    ```lua
    -- Создаём индекс для двух полей departure_date, min_price
    /var/run/tarantool/sys_env/default/instance-001/tarantool.control> ticket_searches:create_index('date_price_idx', {
@@ -129,7 +129,7 @@
    ```
    Получили минимальную цену за 01.01.2025
    ![image](https://github.com/user-attachments/assets/f941260c-3d4e-4ce2-881d-d8d8e617da1f)
-8. Функция для вывода рейсов с ценой менее 3000 рублей
+# 8. Функция для вывода рейсов с ценой менее 3000 рублей
    ```lua
    function find_cheap_flights(max_price)
     local cheap_flights = {}
