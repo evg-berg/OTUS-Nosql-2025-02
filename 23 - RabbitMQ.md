@@ -14,4 +14,26 @@
 # 3. Публикация и чтение сообщений
    ![image](https://github.com/user-attachments/assets/42727acb-c9fe-4eb3-9cac-7d6f705d3e80)
 
-# 4. 
+# 4. Программная отправка и чтение
+   ```python
+   import pika
+
+   # Подключение к серверу RabbitMQ
+   connection = pika.BlockingConnection(pika.ConnectionParameters('localhost'))
+   channel = connection.channel()
+
+   # Текущее время
+   from datetime import datetime
+   current_time = datetime.now().strftime("%H:%M:%S")
+
+   # Отправка сообщения
+   channel.basic_publish(
+       exchange='',
+       routing_key='otus_que1',  # имя очереди
+       body="Hello, OTUS! {}".format(current_time)
+   )
+   print(" [x] Sent {}".format(current_time))
+
+   # Закрытие соединения
+   connection.close()
+   ```
