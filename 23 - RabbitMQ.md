@@ -15,6 +15,7 @@
    ![image](https://github.com/user-attachments/assets/42727acb-c9fe-4eb3-9cac-7d6f705d3e80)
 
 # 4. Программная отправка и чтение
+   producer.py
    ```python
    import pika
 
@@ -36,4 +37,26 @@
 
    # Закрытие соединения
    connection.close()
+   ```
+
+   consumer.py
+   ```python
+   import pika
+
+   def callback(ch, method, properties, body):
+       print(f" [x] Received {body.decode()}")
+   
+   # Подключение к серверу RabbitMQ
+   connection = pika.BlockingConnection(pika.ConnectionParameters('localhost'))
+   channel = connection.channel()
+
+   # Подписка на очередь и указание функции обратного вызова
+   channel.basic_consume(
+       queue='otus_que1',
+       on_message_callback=callback,
+       auto_ack=True  # автоматическое подтверждение получения сообщения
+   )
+   
+   print(' [*] Waiting for messages. To exit press CTRL+C')
+   channel.start_consuming()  # запуск бесконечного цикла ожидания сообщений
    ```
