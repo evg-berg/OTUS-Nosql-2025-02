@@ -1,4 +1,4 @@
-1. Устанавливаем Clickhouse
+# 1. Устанавливаем Clickhouse
    ```sh
    sudo apt-get install -y apt-transport-https ca-certificates dirmngr && sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 8919F6BD2B48D754 && echo "deb https://packages.clickhouse.com/deb stable main" | sudo tee /etc/apt/sources.list.d/clickhouse.list && sudo apt-get update && sudo apt-get install -y clickhouse-server clickhouse-client
    ```
@@ -10,23 +10,23 @@
    ```sh
    sudo service clickhouse-server status
    ```
-3. Устанавливаем gsutil
+# 2. Устанавливаем gsutil
    ```sh
    curl -O https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-cli-linux-x86_64.tar.gz
    tar -xf google-cloud-cli-linux-x86_64.tar.gz
    ./google-cloud-sdk/install.sh
    ```
-4. Скачиваем тестовые данные
+# 3. Скачиваем тестовые данные
    ```sh
    mkdir ./taxi_data
    gsutil -m cp -R gs://chicago10/taxi.csv.0000000000[0-3]* ./taxi_data/
    ```
-5. Подключаемся к серверу, предварительно удалив (для целей тестирования) файл с паролем по умолчанию
+# 4. Подключаемся к серверу, предварительно удалив (для целей тестирования) файл с паролем по умолчанию
    ```sh
    sudo rm /etc/clickhouse-server/users.d/default-password.xml
    clickhouse-client
    ```
-6. Смотрим БД
+# 5. Смотрим БД
    ```clickhouse
    otus-nosql.ru-central1.internal :) show databases;
    SHOW DATABASES
@@ -39,7 +39,7 @@
       └────────────────────┘
    4 rows in set. Elapsed: 0.002 sec.
    ```
-7. Создадим базу данных taxi
+# 6. Создадим базу данных taxi
    ```clickhouse
    CREATE DATABASE IF NOT EXISTS taxi
    CREATE TABLE taxi.taxi_trips
@@ -72,7 +72,7 @@
    PARTITION BY toYYYYMM(trip_start_timestamp)
    ORDER BY (payment_type, tips, tolls)
    ```
-8. Готовим исходные данные для загрузки - убираем "UTC" из файлов .csv
+# 7. Готовим исходные данные для загрузки - убираем "UTC" из файлов .csv
    ```sh
    cd ./taxi_data
    mcedit crop_utc
@@ -87,7 +87,7 @@
    chmod +x crop_utc
    ./crop_utc
    ```
-9. Загружаем данные в БД
+# 8. Загружаем данные в БД
    ```sh
    mcedit insert_data
    #!/bin/bash
@@ -100,35 +100,35 @@
    chmod +x insert_data
    ./insert_data
    ```
-10. Проверяем загруженные данные
-    ```clickhouse
-    select count(*) from taxi.taxi_trips
-    SELECT count(*)
-    FROM taxi.taxi_trips
-    Query id: 1c98de53-f2ed-4380-beb5-168dc6cdb211
-       ┌──count()─┐
-    1. │ 26753683 │ -- 26.75 million
-       └──────────┘
-    1 row in set. Elapsed: 0.007 sec.
-    ```
-    ```clickhouse
-    SELECT name, total_rows, total_bytes FROM system.tables where name='taxi_trips' FORMAT Vertical;
-    SELECT
-       name,
-       total_rows,
-       total_bytes
-    FROM system.tables
-    WHERE name = 'taxi_trips'
-    FORMAT Vertical
-    Query id: 71135c22-d3b3-4720-8568-1e1f86d69d5f
-    Row 1:
-    ──────
-    name:        taxi_trips
-    total_rows:  26753683 -- 26.75 million
-    total_bytes: 3689162741 -- 3.69 billion
-    1 row in set. Elapsed: 0.003 sec.
-    ```
-11. Оценка эталонного запроса
+# 9. Проверяем загруженные данные
+   ```clickhouse
+   select count(*) from taxi.taxi_trips
+   SELECT count(*)
+   FROM taxi.taxi_trips
+   Query id: 1c98de53-f2ed-4380-beb5-168dc6cdb211
+      ┌──count()─┐
+   1. │ 26753683 │ -- 26.75 million
+      └──────────┘
+   1 row in set. Elapsed: 0.007 sec.
+   ```
+   ```clickhouse
+   SELECT name, total_rows, total_bytes FROM system.tables where name='taxi_trips' FORMAT Vertical;
+   SELECT
+      name,
+      total_rows,
+      total_bytes
+   FROM system.tables
+   WHERE name = 'taxi_trips'
+   FORMAT Vertical
+   Query id: 71135c22-d3b3-4720-8568-1e1f86d69d5f
+   Row 1:
+   ──────
+   name:        taxi_trips
+   total_rows:  26753683 -- 26.75 million
+   total_bytes: 3689162741 -- 3.69 billion
+   1 row in set. Elapsed: 0.003 sec.
+   ```
+# 10. Оценка эталонного запроса
     ```clickhouse
     select payment_type, round(sum(tips)/sum(trip_total)*100, 0) + 0 as tips_percent, count(*) as c from taxi.taxi_trips group by payment_type order by 3
     SELECT
