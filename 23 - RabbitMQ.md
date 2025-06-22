@@ -61,5 +61,5 @@
    channel.start_consuming()  # запуск бесконечного цикла ожидания сообщений
    ```
 
-   Результат
+   Результат:
    ![image](https://github.com/user-attachments/assets/fec6d1d8-c9a3-4b6e-b302-303a2a6088e1)
