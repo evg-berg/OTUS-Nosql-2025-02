@@ -11,4 +11,7 @@
    ![image](https://github.com/user-attachments/assets/01b73817-7845-40ff-83ec-7b86770361fa)
    
    И связываем их
-# 3.
+# 3. Публикация и чтение сообщений
+   ![image](https://github.com/user-attachments/assets/42727acb-c9fe-4eb3-9cac-7d6f705d3e80)
+
+# 4. 
