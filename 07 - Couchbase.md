@@ -44,4 +44,18 @@
    ```
    ![image](https://github.com/user-attachments/assets/46d9265b-35b9-41d8-a5a0-e8ae9e1cd9f6)
 
+# 4. Проверка отказоустойчивости
+   Остановка одного сервера
+   ```sh
+   docker stop db2
+   ```
+   В управлении серверами делаем failover отказавшего сервера
+   Запросы продолжают выполняться
    
+   ![image](https://github.com/user-attachments/assets/e1f4f206-5c39-42cb-94bc-f3f4d7753d5e)
+
+   Возвращаем сервер в работу
+   ```sh
+   docker start db2
+   ```
+   ![image](https://github.com/user-attachments/assets/636edbb4-0408-404b-afc8-0616248f5c0a)
