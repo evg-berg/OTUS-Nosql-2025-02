@@ -38,3 +38,10 @@
    INSERT INTO `test_bucket` (KEY, VALUE) 
    VALUES ("order1", {"id": "order1", "user_id": "user1", "amount": 100.50, "items": ["item1", "item2"], "type": "order"});
    ```
+   ## Проверка
+   ```sql
+   SELECT * FROM `test_bucket` WHERE type = "user";
+   ```
+   ![image](https://github.com/user-attachments/assets/46d9265b-35b9-41d8-a5a0-e8ae9e1cd9f6)
+
+   
