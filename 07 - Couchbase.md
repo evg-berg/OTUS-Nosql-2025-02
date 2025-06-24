@@ -23,7 +23,18 @@
    ![image](https://github.com/user-attachments/assets/cdfc007e-dc24-4f49-853d-d31f479fd129)
    ![image](https://github.com/user-attachments/assets/ef16550f-dcdf-4a38-8d33-b1a3c3d3c1ec)
 
-   
+   ## Наполнение тестовыми данными
    ```couchbase
-   
+   -- Создание первичного индекса
+   CREATE PRIMARY INDEX ON `test_bucket`;
+
+   -- Вставка тестовых данных
+   INSERT INTO `test_bucket` (KEY, VALUE) 
+   VALUES ("user1", {"id": "user1", "name": "John Doe", "email": "john@example.com", "type": "user"});
+
+   INSERT INTO `test_bucket` (KEY, VALUE) 
+   VALUES ("user2", {"id": "user2", "name": "Jane Smith", "email": "jane@example.com", "type": "user"});
+
+   INSERT INTO `test_bucket` (KEY, VALUE) 
+   VALUES ("order1", {"id": "order1", "user_id": "user1", "amount": 100.50, "items": ["item1", "item2"], "type": "order"});
    ```
