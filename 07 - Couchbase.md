@@ -24,7 +24,7 @@
    ![image](https://github.com/user-attachments/assets/ef16550f-dcdf-4a38-8d33-b1a3c3d3c1ec)
 
    ## Наполнение тестовыми данными
-   ```couchbase
+   ```sql
    -- Создание первичного индекса
    CREATE PRIMARY INDEX ON `test_bucket`;
 
