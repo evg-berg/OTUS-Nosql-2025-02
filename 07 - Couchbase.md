@@ -51,6 +51,9 @@
    docker stop db2
    ```
    В управлении серверами делаем failover отказавшего сервера
+
+   ![image](https://github.com/user-attachments/assets/e6a80733-d9c9-41a3-8bc2-10ad44758c07)
+
    Запросы продолжают выполняться
    
    ![image](https://github.com/user-attachments/assets/e1f4f206-5c39-42cb-94bc-f3f4d7753d5e)
