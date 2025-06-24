@@ -11,6 +11,7 @@
    ![image](https://github.com/user-attachments/assets/84942bd6-51dc-41fb-a9b8-33379fcc3e41)
 
    Добавляем два других сервера
+   
    ![image](https://github.com/user-attachments/assets/441ef62e-5466-40ad-aa4e-c71a74b664fa)
 
 # 3. Создание БД и наполнение тестовыми данными
