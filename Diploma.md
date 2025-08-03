@@ -1,30 +1,39 @@
-#1. Kafka
-docker-compose.yml
-```yaml
-# docker-compose.yml
-version: '3.8'
+#1. Apache Kafka
+  3 сервера: kafka1, kafka2, kafka3.
+  На каждом соответствующий .env-файл:
+  ```sh
+  ZOOKEEPER_ID=1
+  ZOOKEEPER_SRV=0.0.0.0:2888:3888;kafka2:2888:3888;kafka3:2888:3888
+  KAFKA_BROKER_ID=1
+  ZOOKEEPER_CONNECT=kafka1:2181,kafka2:2181,kafka3:2181
+  HOST_IP=10.128.0.18
+  ```
+  Далее одинаковый для всех серверов docker-compose.yml:
+  ```yaml
+  # docker-compose.yml
+  version: '3.8'
 
-services:
-  zookeeper:
-    image: confluentinc/cp-zookeeper:latest
-    container_name: zookeeper
-    environment:
-      ZOOKEEPER_SERVER_ID: ${ZOOKEEPER_ID}
-      ZOOKEEPER_CLIENT_PORT: 2181
-      ZOOKEEPER_TICK_TIME: 2000
-      ZOOKEEPER_INIT_LIMIT: 5
-      ZOOKEEPER_SYNC_LIMIT: 2
-      ZOOKEEPER_SERVERS: ${ZOOKEEPER_SRV}
-    volumes:
-      - ./zookeeper/data:/var/lib/zookeeper/data
-      - ./zookeeper/log:/var/lib/zookeeper/log
-    networks:
-      - kafka-net
-    ports:
-      - "2181:2181"
-      - "2888:2888"
-      - "3888:3888"
-    restart: unless-stopped
+  services:
+    zookeeper:
+      image: confluentinc/cp-zookeeper:latest
+      container_name: zookeeper
+      environment:
+        ZOOKEEPER_SERVER_ID: ${ZOOKEEPER_ID}
+        ZOOKEEPER_CLIENT_PORT: 2181
+        ZOOKEEPER_TICK_TIME: 2000
+        ZOOKEEPER_INIT_LIMIT: 5
+        ZOOKEEPER_SYNC_LIMIT: 2
+        ZOOKEEPER_SERVERS: ${ZOOKEEPER_SRV}
+      volumes:
+        - ./zookeeper/data:/var/lib/zookeeper/data
+        - ./zookeeper/log:/var/lib/zookeeper/log
+      networks:
+        - kafka-net
+      ports:
+        - "2181:2181"
+        - "2888:2888"
+        - "3888:3888"
+      restart: unless-stopped
 
   kafka:
     image: confluentinc/cp-kafka:latest
