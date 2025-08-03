@@ -71,3 +71,47 @@ networks:
   kafka-net:
     driver: bridge
 ```
+# 2. RabbitMQ
+  3 сервера: rabbitmq1, rabbitmq3, rabbitmq3.
+  На каждом одинаковый файл docker-compose.yml:
+  ```yaml
+  # docker-compose.yml
+  version: '3.8'
+  services:
+    rabbitmq:
+      image: rabbitmq:3.12-management
+      container_name: rabbitmq
+      hostname: rabbitmq1
+      environment:
+        - RABBITMQ_ERLANG_COOKIE=mysecretcookie
+        - RABBITMQ_DEFAULT_USER=admin
+        - RABBITMQ_DEFAULT_PASS=admin
+      ports:
+        - "5672:5672"
+        - "15672:15672"
+        - "4369:4369"
+        - "25672:25672"
+      restart: unless-stopped
+  ```
+  На сервере rabbitmq2 выполняем:
+  ```sh
+  docker exec -it rabbitmq bash
+  # Внутри контейнера:
+  rabbitmqctl stop_app
+  rabbitmqctl join_cluster rabbit@rabbitmq1
+  rabbitmqctl start_app
+  exit
+  ```
+  На сервере rabbitmq3 выполняем:
+  ```sh
+  docker exec -it rabbitmq bash
+  # Внутри контейнера:
+  rabbitmqctl stop_app
+  rabbitmqctl join_cluster rabbit@rabbitmq3
+  rabbitmqctl start_app
+  exit
+  ```
+  Настраиваем автоматическую репликацию очередей на все узлы:
+  ```sh
+  docker exec rabbitmq rabbitmqctl set_policy ha-all ".*" '{"ha-mode":"all"}'
+  ```
