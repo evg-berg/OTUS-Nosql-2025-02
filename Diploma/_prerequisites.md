@@ -129,6 +129,7 @@ networks:
       nats://nats2:6222
       nats://nats3:6222
     ]
+    name: "my_nats_cluster"
   }
   ```
   На каждом одинаковый файл docker-compose.yml:
