@@ -72,7 +72,7 @@ networks:
     driver: bridge
 ```
 # 2. RabbitMQ
-  3 сервера: rabbitmq1, rabbitmq3, rabbitmq3.
+  3 сервера: rabbitmq1, rabbitmq2, rabbitmq3.
   На каждом одинаковый файл docker-compose.yml:
   ```yaml
   # docker-compose.yml
@@ -107,11 +107,51 @@ networks:
   docker exec -it rabbitmq bash
   # Внутри контейнера:
   rabbitmqctl stop_app
-  rabbitmqctl join_cluster rabbit@rabbitmq3
+  rabbitmqctl join_cluster rabbit@rabbitmq1
   rabbitmqctl start_app
   exit
   ```
   Настраиваем автоматическую репликацию очередей на все узлы:
   ```sh
   docker exec rabbitmq rabbitmqctl set_policy ha-all ".*" '{"ha-mode":"all"}'
+  ```
+# 3. NATS
+  3 сервера: nats1, nats2, nats3.
+  На каждом одинаковый файл nats.conf:
+  ```sh
+  listen: 0.0.0.0:4222
+  http: 0.0.0.0:8222
+
+  cluster {
+    listen: 0.0.0.0:6222
+    routes = [
+      nats://nats1:6222
+      nats://nats2:6222
+      nats://nats3:6222
+    ]
+  }
+  ```
+  На каждом одинаковый файл docker-compose.yml:
+  ```yaml
+  version: '3.8'
+
+  services:
+    nats:
+      image: nats:latest
+      container_name: nats
+      command: |
+        --config /etc/nats/nats.conf
+      ports:
+        - "4222:4222"   # клиент
+        - "6222:6222"   # роутинг
+        - "8222:8222"   # мониторинг
+      volumes:
+        - ./nats.conf:/etc/nats/nats.conf
+      networks:
+        - nats-net
+      restart: unless-stopped
+
+  networks:
+    nats-net:
+      driver: bridge
   ```
