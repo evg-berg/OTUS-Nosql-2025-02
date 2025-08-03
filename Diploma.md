@@ -1,4 +1,4 @@
-#1. Apache Kafka
+# 1. Apache Kafka
   3 сервера: kafka1, kafka2, kafka3.
   На каждом соответствующий .env-файл:
   ```sh
